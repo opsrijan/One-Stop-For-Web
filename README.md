@@ -29,3 +29,53 @@ This project was developed as part of the **DA214 (Database Management Systems)*
 ```bash
 git clone https://github.com/yourusername/OneStopForWeb.git
 cd OneStopForWeb
+```
+
+### 2. Install MongoDB
+
+Ensure MongoDB is installed and running on your local machine.  
+If not installed, you can download it from: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
+
+### 3. Start the application
+
+```bash
+npm install
+npm start
+```
+
+Navigate to your browser and go to: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🗃️ Restoring the Database
+
+To populate the database with sample data:
+
+1. Open your command prompt or terminal in the project directory (`OneStopForWeb/`)
+2. Run the following command:
+
+```bash
+mongorestore --db onesto dump/
+```
+
+This will restore the sample database from the `dump/` folder.
+
+---
+
+## 🌐 Live Deployment
+
+You can view the deployed version of the site at:
+
+**[http://51.79.156.194:3000](http://51.79.156.194:3000)**
+
+---
+
+## 👥 Authors
+
+This project was developed by:
+
+- **Srijan Kumar**  
+- **Billa Cherish**  
+- **Avneesh Kumar**
+
+---
