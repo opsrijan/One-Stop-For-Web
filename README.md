@@ -1,6 +1,4 @@
-from pathlib import Path
-
-readme_content = """# OneStopForWeb - IIT Guwahati Student Utility Portal
+# OneStopForWeb - IIT Guwahati Student Utility Portal
 
 **OneStopForWeb** is a centralized web portal developed for the students of **IIT Guwahati**, providing access to essential campus utilities such as:
 
