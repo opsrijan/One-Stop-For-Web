@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Timetable - OneStop for Web</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KY4mI2fV2R+1lIhVBdGZVtN/0cZbHBHgiD9lAUNXS8rCfDq3Kr+1r0p0MVLw/BxGc5BeIrsF+MG1q1shFp74xw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/tt_styles.css">
+</head>
+<body>
+  <%- include('inc/header', { page: 'timetable' }) %>
+  
+  <div class="timetable-page container">
+    <!-- Display user's department and semester (from session) -->
+    <div class="user-info">
+      <p>Department: <strong><%= department %></strong></p>
+      <p>Semester: <strong><%= semester %></strong></p>
+    </div>
+
+    <!-- Day selection drop-down -->
+    <div class="day-selection">
+      <form method="GET" action="/timetable">
+        <label for="day-select">Select Day: </label>
+        <select id="day-select" name="day" onchange="this.form.submit()">
+          <% days.forEach(function(day) { %>
+            <option value="<%= day %>" <%= day === selectedDay ? "selected" : "" %>><%= day %></option>
+          <% }); %>
+        </select>
+      </form>
+    </div>
+
+    <h2><%= selectedDay %> Timetable</h2>
+    
+    <!-- Courses container: sorted by class timing -->
+    <div class="courses-container">
+      
+      <% if (courses && courses.length) { %>
+        <% courses.forEach(function(course) { %>
+          <div class="course-card">
+              <h3 class="course-title">
+                <%= course.course_name %> (<%= course.course_code %>)
+              </h3>
+
+            <p class="class-timing">
+              <span class="label">Class Timing:</span>
+              <%= course.lab_slot ? course.lab_slot : course.class_timing %>
+            </p>
+            
+            <% if (course.instructor) { %>
+              <p class="instructor">
+                <span class="label">Instructor:</span> <%= course.instructor || "TBA" %>
+              </p>
+            <% } %>
+            
+            <% if (course.venue) { %>
+              <p class="venue">
+                <span class="label">Venue:</span>
+                <i class="fas fa-map-marker-alt"></i> <%= course.venue %>
+              </p>
+            <% } %>
+          </div>
+          <% 
+            // Optionally, you might want to add a divider before separating lab courses from theory courses, etc.
+            // For example:
+            if(course.lab_slot) { 
+          %>
+            <hr class="divider">
+            <h3 class="course-title">Theory Courses</h3>
+          <% } %>
+        <% }); %>
+        <%
+          if(user.minor && (selectedDay === "Monday" || selectedDay === "Tuesday" || selectedDay === "Friday")) { 
+        %>
+        <div class="course-card">
+          <h3 class="course-title">
+            <%= user.minor.course_name %> (<%= user.minor.course_code %>)
+          </h3>
+
+          <p class="class-timing">
+            <span class="label">Class Timing:</span>
+            <% if(selectedDay === "Friday") { %>
+              11:00 pm - 11:55 pm
+            <% } else { %>
+              <%= user.minor.class_timing %>
+            <% } %>
+          </p>
+          
+        
+          <p class="instructor">
+            <span class="label">Instructor:</span> <%= user.minor.instructor || "TBA" %>
+          </p>
+        
+          <p class="venue">
+            <span class="label">Venue:</span>
+            <i class="fas fa-map-marker-alt"></i> <%= user.minor.venue %>
+          </p>
+      </div>
+        <% 
+          } if(user.hss && (selectedDay === "Wednesday" || selectedDay === "Thursday" || selectedDay === "Friday")) { 
+        %>
+        <div class="course-card">
+          <h3 class="course-title">
+            <%= user.hss.course_name %> (<%= user.hss.course_code %>)
+          </h3>
+
+        <p class="class-timing">
+          <span class="label">Class Timing:</span>
+          <%=user.hss.class_timing %>
+        </p>
+        
+          <p class="instructor">
+            <span class="label">Instructor:</span> <%= user.hss.instructor || "TBA" %>
+          </p>
+        
+          <p class="venue">
+            <span class="label">Venue:</span>
+            <i class="fas fa-map-marker-alt"></i> <%= user.hss.venue %>
+          </p>
+      </div>
+        <% } %>
+      <% } else { %>
+        <p>No courses available for this day.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+  </footer>
+</body>
+</html>

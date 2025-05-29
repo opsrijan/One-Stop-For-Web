@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('inc/header', { page: 'home' }) %>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Found Items - OneStop for Web</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+
+  <div class="container">
+    <h2>Found Items</h2>
+    <a href="/found/add">Add Found Item</a>
+    <div class="listing-container">
+      <% foundItems.forEach(function(item) { %>
+        <div class="listing-item">
+          <div class="details">
+            <h3><%= item.item_name %></h3>
+            <p><strong>Description:</strong> <%= item.description %></p>
+            <p><strong>When Found:</strong> <%= item.when_found %></p>
+            <p><strong>Submitted Where:</strong> <%= item.submitted_where %></p>
+            <p><strong>Posted by:</strong> <%= item.contact_info.roll %> (<%= item.contact_info.phone %>)</p>
+          </div>
+          <div class="image-box">
+            <img src="<%= item.image_url %>" alt="<%= item.item_name %>">
+          </div>
+          <% if(item.seller_roll === user.roll){ %>
+            <div class="action">
+              <a href="/found/remove/<%= item._id %>" onclick="return confirm('Are you sure you want to remove this found item?');">Remove Listing</a>
+            </div>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+  </footer>
+</body>
+</html>

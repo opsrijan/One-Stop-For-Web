@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OneStop for Web</title>
+  
+</head>
+<body>
+  <header>
+    <div class="container">
+    <div class="branding">
+      <h1>OneStop Web</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/" class="<%= (typeof page !== 'undefined' && page === 'home') ? 'active' : '' %>">Home</a></li>
+        <li><a href="/timetable" class="<%= (typeof page !== 'undefined' && page === 'timetable') ? 'active' : '' %>">Time Table</a></li>
+        <li><a href="/shop" class="<%= (typeof page !== 'undefined' && page === 'shop') ? 'active' : '' %>">Shop</a></li>
+        <li><a href="/menu" class="<%= (typeof page !== 'undefined' && page === 'menu') ? 'active' : '' %>">Menu</a></li>
+        <li><a href="/lostandfound" class="<%= (typeof page !== 'undefined' && page === 'lostandfound') ? 'active' : '' %>">Lost & Found</a></li>
+        <li><a href="/notes" class="<%= (typeof page !== 'undefined' && page === 'timetable') ? 'active' : '' %>">Notes</a></li>
+        <li><a href="/cpicalc" class="<%= (typeof page !== 'undefined' && page === 'timetable') ? 'active' : '' %>">CPI Calculator</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+  </header>

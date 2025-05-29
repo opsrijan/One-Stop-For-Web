@@ -1,0 +1,599 @@
+/* ========== Global Styles ========== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  
+  nav {
+    margin: 10px 0;
+  }
+  
+  nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  /* Footer */
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  /* ========== Home Page Styles ========== */
+  .home-page {
+    text-align: center;
+    margin: 40px 0;
+  }
+  :root {
+    /* Color scheme */
+    --primary: #3a86ff;
+    --primary-dark: #2667cc;
+    --secondary: #ff9e00;
+    --secondary-dark: #e08c00;
+    --dark: #333;
+    --light: #f8f9fa;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    
+    /* Typography */
+    --font-primary: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    --font-secondary: 'Montserrat', 'Helvetica', sans-serif;
+  }
+  
+  /* ========== Modern Header & Navigation ========== */
+  header {
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  /* Branding & Logo Styles */
+  .branding {
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+  }
+  
+  .branding h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    position: relative;
+    display: inline-block;
+    
+    /* Multi-layered text effect */
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add glowing effect on hover */
+  .branding h1:hover {
+    animation: glow 1.5s ease-in-out infinite alternate;
+  }
+  
+  /* Decorative elements around the title */
+  .branding h1::before,
+  .branding h1::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 30px;
+    background: var(--secondary);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .branding h1::before {
+    left: -40px;
+  }
+  
+  .branding h1::after {
+    right: -40px;
+  }
+  
+  /* Subtitle/tagline styling */
+  .branding .tagline {
+    font-size: 1rem;
+    color: #aaa;
+    font-style: italic;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+  }
+  
+  /* Navigation Styles */
+  nav {
+    margin-top: 0;
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    position: relative;
+    background: none;
+    transform: none;
+    border: none;
+  }
+  
+  nav ul li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    position: relative;
+    transform: none;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--secondary);
+    transition: var(--transition);
+    transform: translateX(-50%);
+  }
+  
+  nav ul li a:hover::after {
+    width: 80%;
+  }
+  
+  nav ul li a.active::after {
+    width: 80%;
+  }
+  
+  /* Glow animation for branding hover effect */
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00e6e6, 0 0 20px #00e6e6;
+    }
+    to {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00e6e6, 0 0 40px #00e6e6;
+    }
+  }
+  
+  /* ========== Responsive Design for Header ========== */
+  @media (max-width: 992px) {
+    .header-container {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    nav {
+      margin-top: 1rem;
+    }
+    
+    nav ul {
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .branding h1 {
+      font-size: 2.3rem;
+    }
+    
+    .branding h1::before,
+    .branding h1::after {
+      width: 20px;
+    }
+    
+    .branding h1::before {
+      left: -25px;
+    }
+    
+    .branding h1::after {
+      right: -25px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    nav ul li {
+      width: 100%;
+      text-align: center;
+      margin: 0.25rem 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .branding h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .branding h1::before,
+    .branding h1::after {
+      display: none;
+    }
+  } 
+  .home-page ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .home-page li {
+    margin: 10px 0;
+  }
+  
+  /* ========== Timetable Page Styles ========== */
+  .timetable-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .timetable-page .department {
+    margin-bottom: 30px;
+  }
+  
+  .timetable-page .department h3 {
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+  }
+  
+  .timetable-page .course {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  /* ========== Shop Page Styles ========== */
+  .shop-page {
+    text-align: center;
+  }
+  
+  .shop-page .shop-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .shop-page .product {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    padding: 10px;
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .shop-page .product:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ========== Food Menu Page Styles ========== */
+  /* Day Menu Container */
+  .day-menu {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  .day-menu h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Option List for Day Selection */
+  .menu-options {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .menu-options select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Meal Section Headings */
+  .meal-section {
+    margin-bottom: 40px;
+  }
+  
+  .meal-section h3 {
+    margin: 20px 0 10px;
+    font-size: 1.6rem;
+    color: #007BFF;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+  }
+  
+  /* Grid Layout for Meal Items */
+  .meal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  /* Meal Item Container (Food Menu Items) */
+  .meal-item {
+    width: 300px;      /* Set your desired fixed width */
+    height: 300px;     
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .meal-item:hover {
+    transform: scale(1.05);
+    border-color: orange;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+  }
+  
+  /* The image fills the entire item initially */
+  .meal-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .meal-item:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Image container with overlaid name tag */
+  .item-image-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .item-name-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Hover Overlay - Shows description upon hover */
+  .item-hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;  /* Added z-index to ensure overlay appears above the image */
+  }
+  
+  .meal-item:hover .item-hover-overlay {
+    opacity: 1;
+  }
+  
+  /* ========== Responsive Behavior for Food Menu Page ========== */
+  @media (max-width: 600px) {
+    .meal-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* ========== Additional Utility Styles ========== */
+  .empty-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+  }
+  /* ========== Global Styles ========== */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  /* Footer */
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  /* ========== Timetable Page Specific Styles ========== */
+  .timetable-page .user-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .day-selection {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .day-selection select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Container for course cards */
+  .courses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Each course card style */
+  .course-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .course-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Course title */
+  .course-title {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #007BFF;
+  }
+  
+  /* Styling for course details */
+  .course-card p {
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+  
+  .course-card .label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  /* Venue: add a location icon styling */
+  .venue i {
+    margin-right: 5px;
+    color: #007BFF;
+  }
+  form div {
+    margin-bottom: 15px;
+  }
+  form label {
+    display: inline-block;
+    width: 120px;
+  }
+  form input {
+    padding: 8px;
+    width: calc(100% - 130px);
+    max-width: 300px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .error {
+    color: red;
+  }
+ 
+  /* --------------------------------------------------- */
+  /* Responsive Adjustments */
+  /* --------------------------------------------------- */
+  @media (max-width: 600px) {
+    .listing-item,
+    .product {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .image-box {
+      width: 100%;
+      height: auto;
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+  /* Header and Navigation Styles with Parallelogram Boxes and Metallic Texture */
+
+  .branding h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+  }
+  
+  /* Navigation */

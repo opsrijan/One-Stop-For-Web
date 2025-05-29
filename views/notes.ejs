@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Course Notes - OneStop for Web</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Container for the notes listings */
+    .notes-container {
+      max-width: 800px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    /* Each note item appears as a card */
+    .note-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: linear-gradient(to right, #e6f7ff, #ffffff);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .note-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    /* Note details on the left */
+    .note-details {
+      flex: 1;
+      padding-right: 20px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .note-details h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      color: #007BFF;
+    }
+    .note-details p {
+      margin: 5px 0;
+    }
+    /* Fixed size container for the note file image on the right */
+    .note-file {
+      width: 150px;
+      height: 150px;
+      margin-left: 20px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+    .note-file img,
+    .note-file embed {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Action link for removal */
+    .note-action a {
+      color: red;
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    /* Top navigation for notes page */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .top-nav a.add-btn {
+      padding: 8px 12px;
+      background-color: #007BFF;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include header partial -->
+  <%- include('inc/header', { page: 'notes' }) %>
+  
+  <div class="container">
+    <div class="top-nav">
+      <h2>Notes for My Courses</h2>
+      <a class="add-btn" href="/notes/add">Add Note</a>
+    </div>
+    
+    <div class="notes-container">
+      <% if (notes && notes.length > 0) { %>
+        <% notes.forEach(function(note) { %>
+          <div class="note-item">
+            <div class="note-details">
+              <!-- Display the course code for clarity -->
+              <h3><%= note.course_code %>: Course Notes</h3>
+              <p><strong>Title: </strong> <%= note.title %></p>
+              <p><strong>Uploaded by: </strong> <%= note.uploader.name %> (<%= note.uploader.roll %>)</p>
+              <p><strong>Date :</strong> <%= new Date(note.created_at).toLocaleString() %></p>
+              <p><strong><a href="<%= note.file_url %>" alt="Note File">Download Notes</a></strong></p>
+            </div>
+            <% if (note.uploader.roll === user.roll) { %>
+              <div class="note-action">
+                <a href="/notes/remove/<%= note._id %>" onclick="return confirm('Are you sure you want to remove this note?');">Remove</a>
+              </div>
+            <% } %>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No notes are available for your courses yet.</p>
+      <% } %>
+    </div>
+  </div>
+  
+</body>
+</html>

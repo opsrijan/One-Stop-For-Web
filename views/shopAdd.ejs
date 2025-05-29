@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('inc/header', { page: 'home' }) %>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Add Listing - Shop - OneStop for Web</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+
+  <div class="container">
+    <h2>Add New Listing</h2>
+    <!-- Note: enctype is required for file uploads -->
+    <form action="/shop/add" method="POST" enctype="multipart/form-data">
+      <label for="product_name">Product Name:</label>
+      <input type="text" name="product_name" id="product_name" required><br><br>
+
+      <label for="description">Product Description:</label>
+      <textarea name="description" id="description" required></textarea><br><br>
+
+      <label for="image">Product Image Upload:</label>
+      <input type="file" name="image" id="image" accept="image/*" required><br><br>
+
+      <label for="price">Price:</label>
+      <input type="number" step="0.01" name="price" id="price" required><br><br>
+
+      <label for="category">Category:</label>
+      <select name="category" id="category" required>
+        <% categories.forEach(category => { %>
+            <option value="<%= category %>"><%= category %></option>
+        <% }); %>
+      </select><br><br>
+
+      <label for="contact_roll">Contact Roll No:</label>
+      <input type="text" name="contact_roll" id="contact_roll" required><br><br>
+
+      <label for="contact_phone">Contact Phone No:</label>
+      <input type="text" name="contact_phone" id="contact_phone" required><br><br>
+
+      <button type="submit">Add Listing</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+  </footer>
+</body>
+</html>

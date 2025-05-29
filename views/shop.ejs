@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('inc/header', { page: 'home' }) %>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Shop - OneStop for Web</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Unified Listing Style (for Shop, Lost & Found) */
+    .listing-item, .product {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: linear-gradient(to right, #e6f7ff, #ffffff);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .listing-item:hover, .product:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(to right, #b3e0ff, #ffffff);
+    }
+    .details {
+      flex: 1;
+      padding-right: 20px;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    .details h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      color: #007BFF;
+    }
+    .image-box {
+      width: 200px;
+      height: 200px;
+      margin-left: 20px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-radius: 5px;
+    }
+    .listing-item:hover .image-box img,
+    .product:hover .image-box img {
+      transform: scale(1.1);
+    }
+    .action {
+      margin-top: 10px;
+    }
+    .action a {
+      color: red;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    /* Grid container for listings (if desired) */
+    .shop-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .listing-item, .product {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .image-box {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h2>Shop Listings</h2>
+    <a href="/shop/add">Add New Listing</a>
+    <div class="shop-container">
+      <% if(listings && listings.length) { %>
+        <% listings.forEach(function(listing) { %>
+          <div class="listing-item">
+            <div class="details">
+              <h3><%= listing.product_name %></h3>
+              <p class="price">$<%= listing.price %></p>
+              <p class="description"><%= listing.description %></p>
+              <p class="contact">Contact: <%= listing.contact_info.roll %> | <%= listing.contact_info.phone %></p>
+            </div>
+            <div class="image-box">
+              <img src="<%= listing.image_url %>" alt="<%= listing.product_name %>">
+            </div>
+            <% if(listing.seller_roll === user.roll) { %>
+              <div class="action">
+                <a href="/shop/remove/<%= listing._id %>" onclick="return confirm('Are you sure you want to remove this listing?');">Remove Listing</a>
+              </div>
+            <% } %>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No shop listings found.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+  </footer>
+</body>
+</html>

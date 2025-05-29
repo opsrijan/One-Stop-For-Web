@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OneStop for Web - Home</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>/* Slideshow container */
+    .slideshow-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 20px auto;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+    }
+    
+    /* Each slide is hidden by default */
+    .slide {
+      display: none;
+      position: relative;
+      animation: fadeEffect 1.2s ease-in-out;
+    }
+    
+    /* Active slide */
+    .slide.active {
+      display: block;
+    }
+    
+    /* Fade animation */
+    @keyframes fadeEffect {
+      from {opacity: 0.7;}
+      to {opacity: 1;}
+    }
+    
+    /* Slide image styling - Fixed size 1200x700 */
+    .slide img {
+      width: 1200px;
+      height: 700px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Optional hover effect */
+    .slide:hover img {
+      transform: scale(1.02);
+    }
+    
+    /* Slide heading overlay styling */
+    .slide-heading {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 2em;
+      font-weight: 600;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      border-radius: 5px;
+      max-width: 70%;
+      transition: all 0.3s ease;
+    }
+    
+    /* Navigation arrows */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -25px;
+      padding: 20px;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      transition: all 0.3s ease;
+      user-select: none;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    
+    .prev {
+      left: 20px;
+    }
+    
+    .next {
+      right: 20px;
+    }
+    
+    .prev:hover, .next:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+    
+    /* Dots/bullets/indicators */
+    .dots-container {
+      text-align: center;
+      padding: 15px 0;
+      background: rgba(0, 0, 0, 0.05);
+    }
+    
+    .dot {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .active-dot, .dot:hover {
+      background-color: #555;
+      transform: scale(1.2);
+    }
+    
+    /* Caption text */
+    .caption {
+      position: absolute;
+      bottom: 100px;
+      left: 30px;
+      padding: 8px 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #f5f5f5;
+      font-size: 1.1em;
+      border-radius: 4px;
+      max-width: 60%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    
+    .slide:hover .caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .slide img {
+        width: 100%;
+        height: auto;
+      }
+      
+      .slide-heading {
+        font-size: 1.6em;
+        bottom: 20px;
+        left: 20px;
+      }
+      
+      .caption {
+        font-size: 1em;
+        bottom: 80px;
+        left: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .slide-heading {
+        font-size: 1.3em;
+        padding: 8px 12px;
+      }
+      
+      .caption {
+        font-size: 0.9em;
+        max-width: 80%;
+        bottom: 70px;
+      }
+      
+      .prev, .next {
+        padding: 15px;
+        font-size: 18px;
+        height: 25px;
+        width: 25px;
+      }
+    }
+    
+    /* Accessibility improvements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }</style>
+  <script>
+    // Updated JavaScript for slideshow functionality with arrow wrapping
+    let slideIndex = 0;
+    function showSlide(index) {
+      let slides = document.getElementsByClassName("slide");
+      const totalSlides = slides.length;
+      if (totalSlides === 0) return;
+      // Use modulo arithmetic to cycle slides.
+      slideIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+      for (let i = 0; i < totalSlides; i++) {
+        slides[i].style.display = "none";
+      }
+      slides[slideIndex].style.display = "block";
+    }
+    
+    // Change slide by n
+    function plusSlides(n) {
+      showSlide(slideIndex + n);
+    }
+    
+    // Auto slide every 4 seconds.
+    function autoSlide() {
+      plusSlides(1);
+    }
+    
+    window.onload = function() {
+      showSlide(slideIndex);
+      setInterval(autoSlide, 4000);
+    };
+  </script>
+</head>
+<body>
+  <%- include('inc/header', { page: 'home' }) %>
+  
+  <div class="container">
+    <!-- Slideshow Section -->
+    <div class="slideshow-container" id="slideshow">
+      <% 
+         // Global slides array: update image paths and headings as needed.
+         const slides = [
+           { image: '/images/slide1.jpg', heading: 'Welcome to OneStop for Web' },
+           { image: '/images/slide2.jpg', heading: 'Summer Holidays on the horizon!' },
+           { image: '/images/slide3.jpg', heading: 'NSS Events Concluded.' },
+           { image: '/images/slide4.jpg', heading: 'Shop & Trade with Ease' },
+           { image: '/images/slide5.jpg', heading: 'Hottest Summer in Asia to be recorded in India coming June.' }
+         ];
+         slides.forEach(function(slide, index) { 
+      %>
+        <div class="slide" data-index="<%= index %>">
+          <img src="<%= slide.image %>" alt="Slide <%= index + 1 %>">
+          <div class="slide-heading"><%= slide.heading %></div>
+        </div>
+      <% }); %>
+      <!-- Navigation arrows -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+  </div>
+  
+  <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+</body>
+</html>

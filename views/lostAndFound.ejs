@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('inc/header', { page: 'home' }) %>
+<head>
+  <meta charset="UTF-8">
+  <title>Lost & Found - OneStop for Web</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Lost & Found Tabs Specific Styles */
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab-buttons button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ddd;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 1rem;
+    }
+    .tab-buttons button.active {
+      background-color: #007BFF;
+      color: #fff;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .listing-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .listing-item {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      padding: 10px;
+    }
+    .listing-item .details {
+      flex: 1;
+    }
+    .listing-item .image-box {
+      width: 200px;
+      height: 200px;
+      margin-left: 20px;
+      flex-shrink: 0;
+    }
+    .listing-item .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .listing-item .action {
+      margin-top: 10px;
+    }
+    .listing-item .action a {
+      color: red;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+  </style>
+  <script>
+    function showTab(tabName) {
+      var tabs = document.getElementsByClassName("tab-content");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+      }
+      document.getElementById(tabName).classList.add("active");
+
+      var btns = document.getElementsByClassName("tab-btn");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");
+      }
+      document.getElementById(tabName + "-btn").classList.add("active");
+    }
+    window.onload = function() {
+      showTab("lost"); // default to Lost tab on page load.
+    }
+  </script>
+</head>
+<body>
+
+  
+  <div class="container">
+    <!-- Tab Buttons -->
+    <div class="tab-buttons">
+      <button id="lost-btn" class="tab-btn" onclick="showTab('lost')">Lost</button>
+      <button id="found-btn" class="tab-btn" onclick="showTab('found')">Found</button>
+    </div>
+
+    <!-- Lost Tab -->
+    <div id="lost" class="tab-content">
+      <h2>Lost Items</h2>
+      <a href="/lost/add">Add Lost Item</a>
+      <div class="listing-container">
+        <% if(lostItems && lostItems.length > 0) { %>
+          <% lostItems.forEach(function(item) { %>
+            <div class="listing-item">
+              <div class="details">
+                <h3><%= item.item_name %></h3>
+                <p><strong>Description:</strong> <%= item.description %></p>
+                <p><strong>Where Lost:</strong> <%= item.where_lost %></p>
+                <p><strong>When Lost:</strong> <%= item.when_lost %></p>
+                <p><strong>Posted by:</strong> <%= item.contact_info.roll %> (<%= item.contact_info.phone %>)</p>
+              </div>
+              <div class="image-box">
+                <img src="<%= item.image_url %>" alt="<%= item.item_name %>">
+              </div>
+              <% if(item.seller_roll === user.roll){ %>
+                <div class="action">
+                  <a href="/lost/remove/<%= item._id %>" onclick="return confirm('Are you sure you want to remove this lost item?');">Remove Listing</a>
+                </div>
+              <% } %>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No lost items found.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Found Tab -->
+    <div id="found" class="tab-content">
+      <h2>Found Items</h2>
+      <a href="/found/add">Add Found Item</a>
+      <div class="listing-container">
+        <% if(foundItems && foundItems.length > 0) { %>
+          <% foundItems.forEach(function(item) { %>
+            <div class="listing-item">
+              <div class="details">
+                <h3><%= item.item_name %></h3>
+                <p><strong>Description:</strong> <%= item.description %></p>
+                <p><strong>When Found:</strong> <%= item.when_found %></p>
+                <p><strong>Submitted Where:</strong> <%= item.submitted_where %></p>
+                <p><strong>Posted by:</strong> <%= item.contact_info.roll %> (<%= item.contact_info.phone %>)</p>
+              </div>
+              <div class="image-box">
+                <img src="<%= item.image_url %>" alt="<%= item.item_name %>">
+              </div>
+              <% if(item.seller_roll === user.roll){ %>
+                <div class="action">
+                  <a href="/found/remove/<%= item._id %>" onclick="return confirm('Are you sure you want to remove this found item?');">Remove Listing</a>
+                </div>
+              <% } %>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No found items available.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+  </footer>
+</body>
+</html>

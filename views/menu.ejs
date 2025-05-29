@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('inc/header', { page: 'home' }) %>
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Food Menu - OneStop for Web</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+
+
+    <div class="day-menu">
+        <% 
+        // Define days array if not provided by the server.
+        var days = typeof days !== 'undefined' ? days : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        // Use the current day as the default selectedDay if not provided.
+        var selectedDay = typeof selectedDay !== 'undefined' ? selectedDay : new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    %>
+      <!-- Day selection drop-down -->
+      <!-- Day selection drop-down -->
+<!-- Day selection drop-down -->
+<div class="menu-options">
+    <form method="GET" action="/menu">
+      <label for="day-select">Select Day: </label>
+      <% 
+         // If 'selectedDay' is not provided, default to today's weekday.
+         const defaultDay = (typeof selectedDay !== 'undefined' && selectedDay) 
+                              ? selectedDay 
+                              : new Date().toLocaleString('en-US', { weekday: 'long' });
+         // If 'days' is not provided, default to Monday-Friday.
+         const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday" , "Saturday", "Sunday"];
+      %>
+      <select id="day-select" name="day" onchange="this.form.submit()">
+        <% dayList.forEach(function(day) { %>
+          <option value="<%= day %>" <%= day === defaultDay ? "selected" : "" %>><%= day %></option>
+        <% }); %>
+      </select>
+    </form>
+  </div>
+  
+
+      <h2><%= selectedDay %> Menu</h2>
+
+      <!-- ========== Breakfast Section ========== -->
+      <div class="meal-section">
+        <h3>Breakfast</h3>
+        <div class="meal-grid">
+          <% if (menu && menu.breakfast && menu.breakfast.length) { %>
+            <% menu.breakfast.forEach(function(item) { %>
+              <div class="meal-item">
+                <div class="item-image-container">
+                  <img src="<%= item.item_image %>" alt="<%= item.item_name %>" />
+                  <div class="item-name-tag"><%= item.item_name %></div>
+                </div>
+                <div class="item-hover-overlay">
+                  <p class="item-description"><%= item.item_description %></p>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p class="empty-message">No Breakfast Items Available</p>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- ========== Lunch Section ========== -->
+      <div class="meal-section">
+        <h3>Lunch</h3>
+        <div class="meal-grid">
+          <% if (menu && menu.lunch && menu.lunch.length) { %>
+            <% menu.lunch.forEach(function(item) { %>
+              <div class="meal-item">
+                <div class="item-image-container">
+                  <img src="<%= item.item_image %>" alt="<%= item.item_name %>" />
+                  <div class="item-name-tag"><%= item.item_name %></div>
+                </div>
+                <div class="item-hover-overlay">
+                  <p class="item-description"><%= item.item_description %></p>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p class="empty-message">No Lunch Items Available</p>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- ========== Dinner Section ========== -->
+      <div class="meal-section">
+        <h3>Dinner</h3>
+        <div class="meal-grid">
+          <% if (menu && menu.dinner && menu.dinner.length) { %>
+            <% menu.dinner.forEach(function(item) { %>
+              <div class="meal-item">
+                <div class="item-image-container">
+                  <img src="<%= item.item_image %>" alt="<%= item.item_name %>" />
+                  <div class="item-name-tag"><%= item.item_name %></div>
+                </div>
+                <div class="item-hover-overlay">
+                  <p class="item-description"><%= item.item_description %></p>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p class="empty-message">No Dinner Items Available</p>
+          <% } %>
+        </div>
+      </div>
+    </div> <!-- End .day-menu -->
+
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> OneStop for Web</p>
+    </footer>
+  </body>
+</html>
